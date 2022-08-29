@@ -1,5 +1,8 @@
+// import { themes } from "."
 import { palette } from './palette';
-export default Themes = {
+import React, { useContext } from 'react';
+
+const Themes = {
   light: {
     bg: palette.lightGray,
     bgSecondary: palette.white,
@@ -29,3 +32,23 @@ export default Themes = {
     },
   },
 };
+
+const ThemeContext = React.createContext();
+
+export const themes = Themes;
+export const theme = Themes.dark;
+
+export const ThemeContextProvider = ({ children }) => {
+  return (
+    <ThemeContext.Provider value={{ themes: Themes, theme: Themes.dark }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};
+
+export function withTheme(Component) {
+  return props => {
+    const { themes, theme } = useContext(ThemeContext);
+    return <Component {...props} themes={themes} theme={theme} />;
+  };
+}

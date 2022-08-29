@@ -1,24 +1,24 @@
 import AppLoading from 'expo-app-loading';
 import { StyleSheet, Text, View, StatusBar, SafeAreaView, Image, ScrollView, ImageBackground } from 'react-native';
 import { useFonts } from 'expo-font';
-import { Themes } from './assets/Themes';
+import { theme, ThemeContextProvider, withTheme } from './assets/Themes/themes';
 import { Fragment } from 'react/cjs/react.production.min';
 
-export default function App() {
+App = ({ theme }) => {
     let [fontsLoaded] = useFonts({
         Sydney: require('./assets/Fonts/Sydney-Serial-Regular.ttf'),
         'Sydney-Bold': require('./assets/Fonts/Sydney-Serial-Bold.ttf'),
     });
     if (!fontsLoaded) return <AppLoading />;
     /* ^Don't mind/edit the code above, it's there to load the font for you! */
-    StatusBar.setBarStyle(Themes.light.statusBar);
+    StatusBar.setBarStyle(theme.statusBar);
     /* ^Don't mind/edit this one either unless you decide to do the dark theme one, in that case, you will have to change it accordingly*/
 
     /* insert your code here */
 
     return (
-        <Fragment>
-            <SafeAreaView style={{ flex: 0, backgroundColor: Themes.dark.bg }}>
+        <ThemeContextProvider>
+            <SafeAreaView style={{ flex: 0, backgroundColor: theme.bg }}>
 
             </SafeAreaView>
             <SafeAreaView style={styles.container}>
@@ -35,12 +35,12 @@ export default function App() {
                 </View>
                 <ScrollView style={styles.content} contentContainerStyle={styles.contentContainer} >
                     <View>
-                        <ImageBackground style={[styles.profile, Themes.dark.shadows]} imageStyle={styles.profileImage} source={require('./assets/Profiles/mtl.jpg')}>
+                        <ImageBackground style={[styles.profile, theme.shadows]} imageStyle={styles.profileImage} source={require('./assets/Profiles/mtl.jpg')}>
                             <Text style={styles.text}>MTL</Text>
                             <Text style={styles.secondaryText}>2 miles away</Text>
                         </ImageBackground>
                     </View>
-                    <View style={[styles.audioCard, Themes.dark.shadows]}>
+                    <View style={[styles.audioCard, theme.shadows]}>
                         <Text style={styles.text}>My Hottest Take</Text>
                         <View style={styles.player}>
                             <Image style={{height: "100%", flex: 1, resizeMode: 'contain'}} source={require('./assets/Icons/player_dark.png')}></Image>
@@ -63,18 +63,20 @@ export default function App() {
                     </View>
                 </View>
             </SafeAreaView >
-        </Fragment>
+        </ThemeContextProvider>
     );
 }
+
+export default withTheme(App)
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: Themes.dark.navigation,
+        backgroundColor: theme.navigation,
         justifyContent: 'space-between',
     },
     navBar: {
-        backgroundColor: Themes.dark.bg,
+        backgroundColor: theme.bg,
         height: Platform.OS === 'ios' ? 41 : 54,
         paddingLeft: 20,
         paddingRight: 20,
@@ -83,7 +85,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     logo: {
-        color: Themes.dark.text,
+        color: theme.text,
         fontFamily: "Sydney-Bold",
         fontSize: 32,
     },
@@ -92,7 +94,7 @@ const styles = StyleSheet.create({
         aspectRatio: 1
     },
     content: {
-        backgroundColor: Themes.dark.bg,
+        backgroundColor: theme.bg,
         flex: 1,
         width: "100%"
     },
@@ -116,7 +118,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
         padding: 20,
         borderRadius: 25,
-        backgroundColor: Themes.dark.bgSecondary
+        backgroundColor: theme.bgSecondary
     },
     player: {
         flexDirection: 'row',
@@ -127,16 +129,16 @@ const styles = StyleSheet.create({
     },
     text: {
         fontFamily: 'Sydney',
-        color: Themes.dark.text,
+        color: theme.text,
         fontSize: 32
     },
     secondaryText: {
         fontFamily: 'Sydney',
-        color: Themes.dark.text,
+        color: theme.text,
         fontSize: 18,
     },
     bottom: {
-        backgroundColor: Themes.dark.navigation,
+        backgroundColor: theme.navigation,
         height: 70,
         padding: 5,
         flexDirection: 'row',
@@ -160,6 +162,6 @@ const styles = StyleSheet.create({
     bottomText: {
         fontFamily: "Sydney",
         fontSize: 18,
-        color: Themes.dark.textSecondary
+        color: theme.textSecondary
     }
 });
