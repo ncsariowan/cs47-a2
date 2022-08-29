@@ -1,165 +1,43 @@
 import AppLoading from 'expo-app-loading';
-import { StyleSheet, Text, View, StatusBar, SafeAreaView, Image, ScrollView, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, StatusBar } from 'react-native';
 import { useFonts } from 'expo-font';
 import { Themes } from './assets/Themes';
-import { Fragment } from 'react/cjs/react.production.min';
 
 export default function App() {
-    let [fontsLoaded] = useFonts({
-        Sydney: require('./assets/Fonts/Sydney-Serial-Regular.ttf'),
-        'Sydney-Bold': require('./assets/Fonts/Sydney-Serial-Bold.ttf'),
-    });
-    if (!fontsLoaded) return <AppLoading />;
-    /* ^Don't mind/edit the code above, it's there to load the font for you! */
-    StatusBar.setBarStyle(Themes.light.statusBar);
-    /* ^Don't mind/edit this one either unless you decide to do the dark theme one, in that case, you will have to change it accordingly*/
+  let [fontsLoaded] = useFonts({
+    Sydney: require('./assets/Fonts/Sydney-Serial-Regular.ttf'),
+    'Sydney-Bold': require('./assets/Fonts/Sydney-Serial-Bold.ttf'),
+  });
+  if (!fontsLoaded) return <AppLoading />;
+  /* ^Don't mind/edit the code above, it's there to load the font for you! */
+  StatusBar.setBarStyle(Themes.light.statusBar);
+  /* ^Don't mind/edit this one either unless you decide to do the dark theme one, in that case, you will have to change it accordingly*/
 
-    /* insert your code here */
+  /* insert your code here */
 
-    return (
-        <Fragment>
-            <SafeAreaView style={{ flex: 0, backgroundColor: Themes.dark.bg }}>
-
-            </SafeAreaView>
-            <SafeAreaView style={styles.container}>
-                <View style={styles.navBar} >
-                    <View>
-                        <Image style={styles.icon} source={require('./assets/Icons/menu_dark.png')}></Image>
-                    </View>
-                    <View>
-                        <Text style={styles.logo}>ensom</Text>
-                    </View>
-                    <View >
-                        <Image style={styles.icon} source={require('./assets/Icons/moon.png')}></Image>
-                    </View>
-                </View>
-                <ScrollView style={styles.content} contentContainerStyle={styles.contentContainer} >
-                    <View>
-                        <ImageBackground style={[styles.profile, Themes.dark.shadows]} imageStyle={styles.profileImage} source={require('./assets/Profiles/mtl.jpg')}>
-                            <Text style={styles.text}>MTL</Text>
-                            <Text style={styles.secondaryText}>2 miles away</Text>
-                        </ImageBackground>
-                    </View>
-                    <View style={[styles.audioCard, Themes.dark.shadows]}>
-                        <Text style={styles.text}>My Hottest Take</Text>
-                        <View style={styles.player}>
-                            <Image style={{height: "100%", flex: 1, resizeMode: 'contain'}} source={require('./assets/Icons/player_dark.png')}></Image>
-                            <Image style={{width: "75%", marginLeft: 10, resizeMode: 'contain'}} source={require('./assets/Icons/audio_waveform_dark.png')}></Image>
-                        </View>
-                    </View>
-                </ScrollView>
-                <View style={styles.bottom} >
-                    <View style={styles.bottomButton}>
-                        <Image style={styles.bottomIcon} source={require('./assets/Icons/discover_dark.png')}></Image>
-                        <Text style={styles.bottomText}>Discover</Text>
-                    </View>
-                    <View style={styles.bottomButton}>
-                        <Image style={styles.bottomIcon} source={require('./assets/Icons/heart_dark.png')}></Image>
-                        <Text style={styles.bottomText}>Matches</Text>
-                    </View>
-                    <View style={styles.bottomButton}>
-                        <Image style={styles.bottomIcon} source={require('./assets/Icons/messages_dark.png')}></Image>
-                        <Text style={styles.bottomText}>DMs</Text>
-                    </View>
-                </View>
-            </SafeAreaView >
-        </Fragment>
-    );
+  return (
+    <View style={styles.container}>
+      <Text
+        style={{
+          fontFamily: 'Sydney', // test to see if the font is loaded, feel free to remove this
+        }}>
+        Open up App.js to start working on your app!
+      </Text>
+      <Text
+        style={{
+          fontFamily: 'Sydney-Bold', // test to see if the font is loaded, feel free to remove this
+        }}>
+        ~Good luck~
+      </Text>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: Themes.dark.navigation,
-        justifyContent: 'space-between',
-    },
-    navBar: {
-        backgroundColor: Themes.dark.bg,
-        height: Platform.OS === 'ios' ? 41 : 54,
-        paddingLeft: 20,
-        paddingRight: 20,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-    logo: {
-        color: Themes.dark.text,
-        fontFamily: "Sydney-Bold",
-        fontSize: 32,
-    },
-    icon: {
-        flex: 1,
-        aspectRatio: 1
-    },
-    content: {
-        backgroundColor: Themes.dark.bg,
-        flex: 1,
-        width: "100%"
-    },
-    contentContainer: {
-        flexDirection: 'column',
-        padding: 20,
-        marginTop: 10,
-    },
-    profile: {
-        aspectRatio: 1/1.1,
-        width: "100%",
-        height: undefined,
-        padding: 15,
-        flexDirection: 'column',
-        justifyContent: 'space-between'
-    },
-    profileImage: {
-        borderRadius: 15,
-    },
-    audioCard: {
-        marginTop: 20,
-        padding: 20,
-        borderRadius: 25,
-        backgroundColor: Themes.dark.bgSecondary
-    },
-    player: {
-        flexDirection: 'row',
-        marginTop: 10,
-        marginBottom: 10,
-        height: 60,
-        alignItems: 'center'
-    },
-    text: {
-        fontFamily: 'Sydney',
-        color: Themes.dark.text,
-        fontSize: 32
-    },
-    secondaryText: {
-        fontFamily: 'Sydney',
-        color: Themes.dark.text,
-        fontSize: 18,
-    },
-    bottom: {
-        backgroundColor: Themes.dark.navigation,
-        height: 70,
-        padding: 5,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    bottomButton: {
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingLeft: 20,
-        paddingRight: 20,
-        resizeMode: 'contain',
-    },
-    bottomIcon: {
-        flex: 1,
-        aspectRatio: 1,
-        resizeMode: 'contain',
-        margin: 2
-    },
-    bottomText: {
-        fontFamily: "Sydney",
-        fontSize: 18,
-        color: Themes.dark.textSecondary
-    }
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
